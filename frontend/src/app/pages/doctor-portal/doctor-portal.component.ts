@@ -25,7 +25,7 @@ type DTab = 'dashboard' | 'appointments' | 'patients' | 'profile';
         <i class="fas fa-user-md text-white text-sm"></i>
       </div>
       <div>
-        <p class="text-white font-bold text-sm leading-tight">HealthCare+</p>
+        <p class="text-white font-bold text-sm leading-tight">Health Care System</p>
         <p class="text-gray-400 text-xs">Doctor Portal</p>
       </div>
     </div>

@@ -24,7 +24,7 @@ type Tab = 'overview' | 'pending' | 'doctors' | 'users' | 'appointments' | 'blog
         <i class="fas fa-shield-alt text-white text-sm"></i>
       </div>
       <div>
-        <p class="text-white font-bold text-sm leading-tight">HealthCare+</p>
+        <p class="text-white font-bold text-sm leading-tight">Health Care System</p>
         <p class="text-gray-400 text-xs">Admin Console</p>
       </div>
     </div>
