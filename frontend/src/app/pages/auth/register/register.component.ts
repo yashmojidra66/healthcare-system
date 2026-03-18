@@ -11,12 +11,12 @@ import { AuthService } from '../../../services/auth.service';
   template: `
     <div class="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100 flex items-center justify-center p-4">
       <div class="w-full max-w-md">
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-heartbeat text-white text-2xl"></i>
+        <div class="text-center mb-6 sm:mb-8">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+            <i class="fas fa-heartbeat text-white text-xl sm:text-2xl"></i>
           </div>
-          <h1 class="text-3xl font-bold text-gray-900">Create account</h1>
-          <p class="text-gray-500 mt-1">Start your health journey today</p>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Create account</h1>
+          <p class="text-gray-500 mt-1 text-sm sm:text-base">Start your health journey today</p>
         </div>
 
         <!-- Role selector tabs -->

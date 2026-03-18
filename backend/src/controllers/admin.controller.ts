@@ -12,9 +12,9 @@ export const getStats = async (_req: AuthRequest, res: Response, next: NextFunct
   try {
     const [totalUsers, totalDoctors, totalAppointments, totalPosts] = await Promise.all([
       User.countDocuments({ role: 'user' }),
-      User.countDocuments({ role: 'doctor' }),
+      User.countDocuments({ role: 'doctor', status: 'active' }),
       Appointment.countDocuments(),
-      BlogPost.countDocuments(),
+      CommunityPost.countDocuments(),
     ]);
     res.json({ success: true, data: { totalUsers, totalDoctors, totalAppointments, totalPosts } });
   } catch (err) { next(err); }

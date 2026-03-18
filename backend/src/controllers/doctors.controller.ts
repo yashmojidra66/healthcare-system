@@ -7,7 +7,11 @@ import { userResponse } from '../utils/jwt';
 export const getDoctors = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { specialty, search } = req.query;
-    const filter: Record<string, unknown> = { role: 'doctor' };
+    // Match active doctors OR doctors where status field is missing (legacy seeded data)
+    const filter: Record<string, unknown> = {
+      role: 'doctor',
+      $or: [{ status: 'active' }, { status: { $exists: false } }]
+    };
 
     if (specialty) filter['specialty'] = specialty;
     if (search) {

@@ -8,16 +8,20 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="max-w-4xl mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">My Profile</h1>
-        <p class="text-gray-500 mt-1">Manage your personal health information</p>
+    <div class="max-w-4xl mx-auto px-4 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">My Profile</h1>
+        <p class="text-gray-500 mt-1 text-sm sm:text-base">Manage your personal health information</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
         <!-- Avatar Card -->
         <div class="card text-center">
-          <img [src]="auth.currentUser()?.avatar" class="w-24 h-24 rounded-2xl mx-auto mb-4">
+          <div class="relative inline-block mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png"
+              class="w-24 h-24 rounded-2xl mx-auto object-cover shadow-lg bg-blue-50 border-2 border-primary-100">
+            <span class="absolute bottom-1 right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></span>
+          </div>
           <h3 class="font-bold text-gray-900 text-lg">{{ auth.currentUser()?.name }}</h3>
           <p class="text-primary-600 text-sm font-medium capitalize">{{ auth.currentUser()?.role }}</p>
           <p class="text-gray-500 text-sm mt-1">{{ auth.currentUser()?.email }}</p>
@@ -44,7 +48,7 @@ import { AuthService } from '../../services/auth.service';
           </div>
 
           @if (!editing()) {
-            <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
               @for (field of displayFields; track field.label) {
                 <div class="p-3 bg-gray-50 rounded-xl">
                   <p class="text-gray-400 text-xs mb-1">{{ field.label }}</p>
@@ -53,7 +57,7 @@ import { AuthService } from '../../services/auth.service';
               }
             </div>
           } @else {
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <input type="text" [(ngModel)]="form.name" class="input-field">
@@ -154,5 +158,27 @@ export class ProfileComponent {
         setTimeout(() => this.saved.set(false), 3000);
       }
     });
+  }
+
+  initials(): string {
+    const name = this.auth.currentUser()?.name || 'P';
+    return name.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase();
+  }
+
+  avatarGradient(): string {
+    const name = this.auth.currentUser()?.name || 'Patient';
+    const gradients = [
+      'linear-gradient(135deg,#667eea,#764ba2)',
+      'linear-gradient(135deg,#f093fb,#f5576c)',
+      'linear-gradient(135deg,#4facfe,#00f2fe)',
+      'linear-gradient(135deg,#43e97b,#38f9d7)',
+      'linear-gradient(135deg,#fa709a,#fee140)',
+      'linear-gradient(135deg,#a18cd1,#fbc2eb)',
+      'linear-gradient(135deg,#fd7043,#ff8a65)',
+      'linear-gradient(135deg,#30cfd0,#330867)',
+      'linear-gradient(135deg,#a1c4fd,#c2e9fb)',
+      'linear-gradient(135deg,#f77062,#fe5196)',
+    ];
+    return gradients[name.charCodeAt(0) % gradients.length];
   }
 }

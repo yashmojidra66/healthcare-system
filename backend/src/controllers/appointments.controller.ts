@@ -10,8 +10,27 @@ export const getAppointments = async (req: AuthRequest, res: Response, next: Nex
       req.user!.role === 'doctor' ? { doctorId: req.user!._id } :
       { userId: req.user!._id };
 
-    const appointments = await Appointment.find(filter).sort({ date: -1 });
-    res.json({ success: true, data: appointments });
+    const appointments = await Appointment.find(filter)
+      .populate('doctorId', 'name avatar specialty')
+      .populate('userId', 'name avatar')
+      .sort({ date: -1 });
+
+    // Merge populated doctor avatar and patient name into the response
+    const data = appointments.map(a => {
+      const obj = a.toObject() as any;
+      if (obj.doctorId && typeof obj.doctorId === 'object') {
+        obj.doctorAvatar = obj.doctorId.avatar;
+        obj.doctorId = obj.doctorId._id;
+      }
+      if (obj.userId && typeof obj.userId === 'object') {
+        obj.patientName = obj.userId.name;
+        obj.patientAvatar = obj.userId.avatar;
+        obj.userId = obj.userId._id;
+      }
+      return obj;
+    });
+
+    res.json({ success: true, data });
   } catch (err) { next(err); }
 };
 

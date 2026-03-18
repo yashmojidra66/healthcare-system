@@ -11,21 +11,21 @@ import { HealthLog } from '../../models/health.model';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="max-w-7xl mx-auto px-4 py-8">
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 gap-3">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">Health Tracking</h1>
-          <p class="text-gray-500 mt-1">Monitor your daily health metrics</p>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Health Tracking</h1>
+          <p class="text-gray-500 mt-1 text-sm sm:text-base">Monitor your daily health metrics</p>
         </div>
-        <button (click)="showForm.set(!showForm())" class="btn-primary">
+        <button (click)="showForm.set(!showForm())" class="btn-primary self-start text-sm sm:text-base">
           <i class="fas fa-plus mr-2"></i>Log Today
         </button>
       </div>
 
       <!-- Log Form -->
       @if (showForm()) {
-        <div class="card mb-8 animate-slide-up">
+        <div class="card mb-6 md:mb-8 animate-slide-up">
           <h3 class="font-bold text-gray-900 mb-4">Add Health Log</h3>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Calories</label>
               <input type="number" [(ngModel)]="form.calories" class="input-field" placeholder="2000">
@@ -60,26 +60,26 @@ import { HealthLog } from '../../models/health.model';
                 <option value="terrible">😞 Terrible</option>
               </select>
             </div>
-            <div class="md:col-span-2">
+            <div class="sm:col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
               <input type="text" [(ngModel)]="form.notes" class="input-field" placeholder="How are you feeling?">
             </div>
           </div>
           <div class="flex gap-3 mt-4">
-            <button (click)="saveLog()" class="btn-primary">Save Log</button>
-            <button (click)="showForm.set(false)" class="btn-secondary">Cancel</button>
+            <button (click)="saveLog()" class="btn-primary text-sm">Save Log</button>
+            <button (click)="showForm.set(false)" class="btn-secondary text-sm">Cancel</button>
           </div>
         </div>
       }
 
       <!-- Summary Cards -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         @for (m of metrics; track m.label) {
-          <div class="card text-center">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3" [class]="m.bg">
-              <i [class]="m.icon + ' ' + m.color"></i>
+          <div class="card text-center p-3 sm:p-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3" [class]="m.bg">
+              <i [class]="m.icon + ' ' + m.color + ' text-sm sm:text-base'"></i>
             </div>
-            <p class="text-2xl font-bold text-gray-900">{{ m.value }}</p>
+            <p class="text-xl sm:text-2xl font-bold text-gray-900">{{ m.value }}</p>
             <p class="text-xs text-gray-500 mt-1">{{ m.label }}</p>
             <div class="progress-bar mt-2">
               <div class="progress-fill" [class]="m.fill" [style.width.%]="m.pct"></div>
@@ -91,7 +91,8 @@ import { HealthLog } from '../../models/health.model';
       <!-- Logs Table -->
       <div class="card">
         <h3 class="font-bold text-gray-900 mb-4">Health Log History</h3>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto -mx-4 sm:mx-0">
+          <div class="min-w-[500px] px-4 sm:px-0">
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-gray-100">
@@ -116,6 +117,7 @@ import { HealthLog } from '../../models/health.model';
               }
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

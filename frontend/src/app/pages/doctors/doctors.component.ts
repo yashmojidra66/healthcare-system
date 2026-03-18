@@ -9,30 +9,31 @@ import { HealthService } from '../../services/health.service';
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   template: `
-    <div class="max-w-7xl mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Find a Doctor</h1>
-        <p class="text-gray-500 mt-1">Connect with certified healthcare professionals</p>
+    <div class="max-w-7xl mx-auto px-4 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Find a Doctor</h1>
+        <p class="text-gray-500 mt-1 text-sm sm:text-base">Connect with certified healthcare professionals</p>
       </div>
 
       <!-- Search -->
-      <div class="card mb-6 flex flex-col md:flex-row gap-4">
+      <div class="card mb-5 sm:mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div class="flex-1 relative">
           <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
           <input type="text" [(ngModel)]="search" placeholder="Search by name or specialty..."
             class="input-field pl-10">
         </div>
-        <select [(ngModel)]="specialty" class="input-field md:w-48">
+        <select [(ngModel)]="specialty" class="input-field sm:w-48">
           <option value="">All Specialties</option>
           @for (s of specialties; track s) { <option [value]="s">{{ s }}</option> }
         </select>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         @for (doc of filteredDoctors(); track doc.id) {
           <div class="card hover:scale-[1.02] transition-transform duration-200">
             <div class="flex items-start gap-4 mb-4">
-              <img [src]="doc.avatar" class="w-16 h-16 rounded-2xl" [alt]="doc.name">
+              <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-doctor-icon-circle-png-image_5281907.jpg"
+                [alt]="doc.name" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0">
               <div class="flex-1">
                 <h3 class="font-bold text-gray-900">{{ doc.name }}</h3>
                 <p class="text-sm text-primary-600 font-medium">{{ doc.specialty }}</p>
@@ -63,7 +64,8 @@ import { HealthService } from '../../services/health.service';
           <div class="bg-white rounded-2xl max-w-md w-full p-6 animate-slide-up" (click)="$event.stopPropagation()">
             <div class="flex items-start justify-between mb-4">
               <div class="flex items-center gap-4">
-                <img [src]="selected()!.avatar" class="w-16 h-16 rounded-2xl">
+                <img src="https://png.pngtree.com/png-clipart/20200225/original/pngtree-doctor-icon-circle-png-image_5281907.jpg"
+                  [alt]="selected()!.name" class="w-16 h-16 rounded-2xl object-cover shadow-md flex-shrink-0">
                 <div>
                   <h2 class="text-xl font-bold text-gray-900">{{ selected()!.name }}</h2>
                   <p class="text-primary-600 font-medium">{{ selected()!.specialty }}</p>
@@ -117,4 +119,6 @@ export class DoctorsComponent implements OnInit {
       return matchSearch && matchSpec;
     });
   }
+
+
 }

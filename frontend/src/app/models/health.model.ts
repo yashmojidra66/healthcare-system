@@ -13,6 +13,7 @@ export interface HealthLog {
 }
 
 export interface MealPlan {
+  _id?: string;
   id: string;
   name: string;
   description: string;
@@ -41,6 +42,7 @@ export interface Meal {
 }
 
 export interface WorkoutPlan {
+  _id?: string;
   id: string;
   name: string;
   description: string;
@@ -67,9 +69,11 @@ export interface Exercise {
 
 export interface Appointment {
   id: string;
+  _id?: string;
   userId: string;
   doctorId: string;
   doctorName: string;
+  doctorAvatar?: string;
   specialty: string;
   date: Date;
   time: string;

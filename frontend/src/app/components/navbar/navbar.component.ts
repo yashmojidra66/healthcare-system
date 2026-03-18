@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+﻿import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
             <div class="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center">
               <i class="fas fa-heartbeat text-white text-sm"></i>
             </div>
-            <span class="text-xl font-bold text-gray-900">HealthCare<span class="text-primary-600">+</span></span>
+            <span class="text-xl font-bold text-gray-900">Modern<span class="text-primary-600">Medicare</span></span>
           </a>
           <div class="hidden md:flex items-center gap-1">
             <a routerLink="/home" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Home</a>
@@ -65,4 +65,5 @@ export class NavbarComponent {
   menuOpen = signal(false);
   constructor(public auth: AuthService) {}
 }
+
 

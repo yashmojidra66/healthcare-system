@@ -10,10 +10,10 @@ import { CommunityPost } from '../../models/health.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="max-w-3xl mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Community</h1>
-        <p class="text-gray-500 mt-1">Share your health journey and inspire others</p>
+    <div class="max-w-3xl mx-auto px-4 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Community</h1>
+        <p class="text-gray-500 mt-1 text-sm sm:text-base">Share your health journey and inspire others</p>
       </div>
       @if (auth.isLoggedIn()) {
         <div class="card mb-6">

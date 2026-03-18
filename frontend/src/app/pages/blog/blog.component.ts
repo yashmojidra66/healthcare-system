@@ -8,23 +8,23 @@ import { BlogPost } from '../../models/health.model';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="max-w-7xl mx-auto px-4 py-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Health Blog</h1>
-        <p class="text-gray-500 mt-1">Expert insights and tips for a healthier life</p>
+    <div class="max-w-7xl mx-auto px-4 py-6 sm:py-8">
+      <div class="mb-6 sm:mb-8">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Health Blog</h1>
+        <p class="text-gray-500 mt-1 text-sm sm:text-base">Expert insights and tips for a healthier life</p>
       </div>
 
-      <div class="flex gap-2 mb-6 flex-wrap">
+      <div class="flex gap-2 mb-5 sm:mb-6 flex-wrap">
         @for (cat of categories; track cat) {
           <button (click)="activeCategory.set(cat)"
-            class="px-4 py-2 rounded-full text-sm font-medium transition-all"
+            class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all"
             [class]="activeCategory() === cat ? 'bg-primary-600 text-white' : 'bg-white text-gray-600 border border-gray-200 hover:border-primary-300'">
             {{ cat }}
           </button>
         }
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         @for (post of filteredPosts(); track post.id) {
           <div class="card p-0 overflow-hidden hover:scale-[1.02] transition-transform duration-200 cursor-pointer" (click)="selected.set(post)">
             <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-48 object-cover">

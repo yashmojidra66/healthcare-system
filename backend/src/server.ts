@@ -43,10 +43,10 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Stricter limit on auth routes
+// Stricter limit on auth routes (relaxed in development)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: process.env.NODE_ENV === 'production' ? 20 : 500,
   message: { success: false, message: 'Too many auth attempts, please try again later.' },
 });
 app.use('/api/auth', authLimiter);

@@ -31,7 +31,7 @@ interface Portal {
           <div class="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-md">
             <i class="fas fa-heartbeat text-white text-sm"></i>
           </div>
-          <span class="text-xl font-bold text-gray-900">HealthCare<span class="text-primary-600">+</span></span>
+          <span class="text-xl font-bold text-gray-900">Modern<span class="text-primary-600">Medicare</span></span>
         </a>
         <p class="text-sm text-gray-500">
           No account? <a routerLink="/register" class="text-primary-600 font-semibold hover:underline">Sign up free</a>
@@ -48,11 +48,11 @@ interface Portal {
                 <div class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 text-xs font-semibold px-4 py-2 rounded-full mb-4">
                   <i class="fas fa-lock text-xs"></i> Secure Sign In
                 </div>
-                <h1 class="text-4xl font-extrabold text-gray-900 mb-3">Choose Your Portal</h1>
-                <p class="text-gray-500 text-lg max-w-md mx-auto">Select the portal that matches your role to access your personalized dashboard.</p>
+                <h1 class="text-2xl sm:text-4xl font-extrabold text-gray-900 mb-3">Choose Your Portal</h1>
+                <p class="text-gray-500 text-sm sm:text-lg max-w-md mx-auto">Select the portal that matches your role to access your personalized dashboard.</p>
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
                 @for (portal of portals; track portal.key) {
                   <button (click)="selectPortal(portal)"
                     class="group text-left bg-white rounded-2xl border-2 border-gray-100 shadow-sm hover:shadow-lg hover:border-primary-200 transition-all duration-200 overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary-400">
@@ -86,6 +86,26 @@ interface Portal {
                 }
               </div>
 
+              <!-- Dev Quick Login -->
+              <div class="mt-6 bg-gray-900/5 border border-dashed border-gray-300 rounded-2xl p-4">
+                <div class="flex items-center gap-2 mb-3">
+                  <i class="fas fa-code text-xs text-gray-400"></i>
+                  <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Dev Quick Login</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  @for (d of devAccounts; track d.label) {
+                    <button (click)="devLogin(d)"
+                      class="flex items-center gap-2 px-3 py-2.5 rounded-xl border text-left transition-all hover:shadow-sm"
+                      [class]="d.style">
+                      <i [class]="d.icon + ' text-sm'"></i>
+                      <div>
+                        <p class="text-xs font-bold leading-tight">{{ d.label }}</p>
+                        <p class="text-xs opacity-60 leading-tight">{{ d.email }}</p>
+                      </div>
+                    </button>
+                  }
+                </div>
+              </div>
 
             </div>
           }
@@ -123,7 +143,7 @@ interface Portal {
                 <div class="h-1" [class]="activePortal()!.accent"></div>
                 <div class="p-7">
                   <h2 class="text-2xl font-bold text-gray-900 mb-1">Welcome back</h2>
-                  <p class="text-gray-500 text-sm mb-6">Sign in to your HealthCare+ account</p>
+                  <p class="text-gray-500 text-sm mb-6">Sign in to your Modern Medicare account</p>
 
                   @if (error()) {
                     <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 mb-5 text-sm flex items-center gap-2 animate-fade-in">
@@ -243,6 +263,21 @@ export class LoginComponent {
   ];
 
   constructor(private auth: AuthService, private router: Router) {}
+
+  devAccounts = [
+    { label: 'Patient', email: 'user@health.com', password: 'pass1234', portal: 'patient' as PortalType, icon: 'fas fa-user', style: 'bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100' },
+    { label: 'Doctor', email: 'doctor@health.com', password: 'pass1234', portal: 'doctor' as PortalType, icon: 'fas fa-user-md', style: 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100' },
+    { label: 'Admin', email: 'admin@health.com', password: 'pass1234', portal: 'admin' as PortalType, icon: 'fas fa-user-shield', style: 'bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100' },
+  ];
+
+  devLogin(account: { email: string; password: string; portal: PortalType }) {
+    this.selectedPortal.set(account.portal);
+    this.email = account.email;
+    this.password = account.password;
+    this.error.set('');
+    // Auto-submit after a tick so the form renders
+    setTimeout(() => this.onSubmit(), 50);
+  }
 
   activePortal() {
     return this.portals.find(p => p.key === this.selectedPortal()) ?? null;

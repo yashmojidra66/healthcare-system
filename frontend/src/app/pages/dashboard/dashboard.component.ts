@@ -12,26 +12,26 @@ import { HealthLog, Appointment } from '../../models/health.model';
   template: `
     <div class="max-w-7xl mx-auto px-4 py-8">
       <!-- Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 gap-3">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">Good {{ greeting }}, {{ (auth.currentUser()?.name || 'there').split(' ')[0] }} 👋</h1>
-          <p class="text-gray-500 mt-1">Here's your health overview for today</p>
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Good {{ greeting }}, {{ (auth.currentUser()?.name || 'there').split(' ')[0] }} 👋</h1>
+          <p class="text-gray-500 mt-1 text-sm sm:text-base">Here's your health overview for today</p>
         </div>
-        <a routerLink="/health-tracking" class="btn-primary self-start">
+        <a routerLink="/health-tracking" class="btn-primary self-start text-sm sm:text-base">
           <i class="fas fa-plus mr-2"></i>Log Today
         </a>
       </div>
 
       <!-- Stats -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         @for (stat of stats; track stat.label) {
-          <div class="card flex items-center gap-4">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" [class]="stat.bg">
-              <i [class]="stat.icon + ' ' + stat.color"></i>
+          <div class="card flex items-center gap-3">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0" [class]="stat.bg">
+              <i [class]="stat.icon + ' ' + stat.color + ' text-sm sm:text-base'"></i>
             </div>
-            <div>
-              <p class="text-2xl font-bold text-gray-900">{{ stat.value }}</p>
-              <p class="text-xs text-gray-500">{{ stat.label }}</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-2xl font-bold text-gray-900 truncate">{{ stat.value }}</p>
+              <p class="text-xs text-gray-500 truncate">{{ stat.label }}</p>
             </div>
           </div>
         }
@@ -97,7 +97,9 @@ import { HealthLog, Appointment } from '../../models/health.model';
             } @else {
               @for (appt of upcomingAppts(); track appt.id) {
                 <div class="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
-                  <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + appt.doctorName" class="w-10 h-10 rounded-full">
+                  <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center border border-gray-200 flex-shrink-0">
+                    <i class="fas fa-user-md text-gray-400 text-sm"></i>
+                  </div>
                   <div class="flex-1">
                     <p class="text-sm font-semibold text-gray-800">{{ appt.doctorName }}</p>
                     <p class="text-xs text-gray-500">{{ appt.specialty }} · {{ appt.date | date:'MMM d' }} at {{ appt.time }}</p>
@@ -112,22 +114,69 @@ import { HealthLog, Appointment } from '../../models/health.model';
           </div>
         </div>
 
-        <!-- Goals -->
-        <div class="card">
-          <h3 class="font-bold text-gray-900 mb-4">Today's Goals</h3>
-          <div class="space-y-4">
-            @for (goal of goals; track goal.label) {
-              <div>
-                <div class="flex justify-between text-sm mb-1">
-                  <span class="text-gray-600">{{ goal.label }}</span>
-                  <span class="font-semibold text-gray-800">{{ goal.current }}/{{ goal.target }}</span>
+        <!-- Right column: Goals + Active Plans -->
+        <div class="space-y-6">
+          <!-- Today's Goals -->
+          <div class="card">
+            <h3 class="font-bold text-gray-900 mb-4">Today's Goals</h3>
+            <div class="space-y-4">
+              @for (goal of goals; track goal.label) {
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-gray-600">{{ goal.label }}</span>
+                    <span class="font-semibold text-gray-800">{{ goal.current }}/{{ goal.target }}</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" [class]="goal.color" [style.width.%]="(goal.current/goal.target)*100 | number:'1.0-0'"></div>
+                  </div>
                 </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" [class]="goal.color" [style.width.%]="(goal.current/goal.target)*100 | number:'1.0-0'"></div>
+              }
+            </div>
+          </div>
+
+          <!-- Active Meal Plan -->
+          @if (activeMealPlan()) {
+            <div class="card border-l-4 border-orange-400">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-gray-900 text-sm">Active Meal Plan</h3>
+                <span class="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-semibold">Day {{ mealPlanDay() }}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-utensils text-orange-500"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-semibold text-gray-800 text-sm truncate">{{ activeMealPlan().name }}</p>
+                  <p class="text-xs text-gray-500">{{ activeMealPlan().calories }} kcal · {{ activeMealPlan().protein }}g protein</p>
                 </div>
               </div>
-            }
-          </div>
+              <a routerLink="/meal-plans" class="mt-3 block text-center text-xs text-orange-600 hover:text-orange-700 font-medium">
+                Track meals <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          }
+
+          <!-- Active Workout Plan -->
+          @if (activeWorkoutPlan()) {
+            <div class="card border-l-4 border-purple-400">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-gray-900 text-sm">Active Workout Plan</h3>
+                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full font-semibold">Day {{ workoutPlanDay() }}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-dumbbell text-purple-500"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-semibold text-gray-800 text-sm truncate">{{ activeWorkoutPlan().name }}</p>
+                  <p class="text-xs text-gray-500">{{ activeWorkoutPlan().category }} · {{ activeWorkoutPlan().duration }} min/session</p>
+                </div>
+              </div>
+              <a routerLink="/workouts" class="mt-3 block text-center text-xs text-purple-600 hover:text-purple-700 font-medium">
+                Log session <i class="fas fa-arrow-right ml-1"></i>
+              </a>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -138,6 +187,10 @@ export class DashboardComponent implements OnInit {
   upcomingAppts = signal<Appointment[]>([]);
   loadingLogs = signal(true);
   loadingAppts = signal(true);
+  activeMealPlan = signal<any>(null);
+  activeWorkoutPlan = signal<any>(null);
+  mealPlanDay = signal(1);
+  workoutPlanDay = signal(1);
 
   constructor(public auth: AuthService, private health: HealthService) {}
 
@@ -153,6 +206,17 @@ export class DashboardComponent implements OnInit {
       },
       error: () => this.loadingAppts.set(false)
     });
+
+    // Load active plans from localStorage
+    const mealPlan = localStorage.getItem('activeMealPlan');
+    if (mealPlan) this.activeMealPlan.set(JSON.parse(mealPlan));
+    const mealStart = localStorage.getItem('mealPlanStartDate');
+    if (mealStart) this.mealPlanDay.set(Math.floor((Date.now() - new Date(mealStart).getTime()) / 86400000) + 1);
+
+    const workoutPlan = localStorage.getItem('activeWorkoutPlan');
+    if (workoutPlan) this.activeWorkoutPlan.set(JSON.parse(workoutPlan));
+    const workoutStart = localStorage.getItem('workoutPlanStartDate');
+    if (workoutStart) this.workoutPlanDay.set(Math.floor((Date.now() - new Date(workoutStart).getTime()) / 86400000) + 1);
   }
 
   get greeting() {
@@ -178,8 +242,6 @@ export class DashboardComponent implements OnInit {
     { label: 'Health Tracking', path: '/health-tracking', icon: 'fas fa-chart-line', bg: 'bg-blue-100', color: 'text-blue-600' },
     { label: 'Meal Plans', path: '/meal-plans', icon: 'fas fa-utensils', bg: 'bg-orange-100', color: 'text-orange-600' },
     { label: 'Workouts', path: '/workouts', icon: 'fas fa-dumbbell', bg: 'bg-purple-100', color: 'text-purple-600' },
-    { label: 'Mental Health', path: '/mental-health', icon: 'fas fa-brain', bg: 'bg-pink-100', color: 'text-pink-600' },
-    { label: 'Progress', path: '/progress', icon: 'fas fa-trophy', bg: 'bg-yellow-100', color: 'text-yellow-600' },
     { label: 'Appointments', path: '/appointments', icon: 'fas fa-calendar', bg: 'bg-green-100', color: 'text-green-600' },
   ];
 
