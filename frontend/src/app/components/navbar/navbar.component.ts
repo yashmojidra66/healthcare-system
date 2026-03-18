@@ -1,4 +1,4 @@
-﻿import { Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -19,21 +19,12 @@ import { AuthService } from '../../services/auth.service';
           </a>
           <div class="hidden md:flex items-center gap-1">
             <a routerLink="/home" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Home</a>
-            @if (auth.isLoggedIn()) {
-              <a routerLink="/dashboard" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Dashboard</a>
-              <a routerLink="/health-tracking" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Tracking</a>
-              <a routerLink="/workouts" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Workouts</a>
-              <a routerLink="/meal-plans" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Meals</a>
-            }
             <a routerLink="/doctors" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Doctors</a>
             <a routerLink="/blog" routerLinkActive="text-primary-600 bg-primary-50" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 transition-colors">Blog</a>
           </div>
           <div class="flex items-center gap-2">
             @if (auth.isLoggedIn()) {
-              <a routerLink="/profile" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                <img [src]="auth.currentUser()?.avatar" class="w-8 h-8 rounded-full" alt="avatar">
-                <span class="hidden md:block text-sm font-medium text-gray-700">{{ (auth.currentUser()?.name || 'User').split(' ')[0] }}</span>
-              </a>
+              <a routerLink="/dashboard" class="px-4 py-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">Dashboard</a>
               <button (click)="auth.logout()" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-red-600 transition-colors">Logout</button>
             } @else {
               <a routerLink="/login" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors">Login</a>
@@ -47,14 +38,11 @@ import { AuthService } from '../../services/auth.service';
         @if (menuOpen()) {
           <div class="md:hidden border-t border-gray-100 py-3 space-y-1">
             <a routerLink="/home" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Home</a>
-            @if (auth.isLoggedIn()) {
-              <a routerLink="/dashboard" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Dashboard</a>
-              <a routerLink="/health-tracking" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Health Tracking</a>
-              <a routerLink="/workouts" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Workouts</a>
-              <a routerLink="/meal-plans" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Meal Plans</a>
-            }
             <a routerLink="/doctors" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Doctors</a>
             <a routerLink="/blog" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Blog</a>
+            @if (auth.isLoggedIn()) {
+              <a routerLink="/dashboard" (click)="menuOpen.set(false)" class="block px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50">Dashboard</a>
+            }
           </div>
         }
       </div>
@@ -65,5 +53,3 @@ export class NavbarComponent {
   menuOpen = signal(false);
   constructor(public auth: AuthService) {}
 }
-
-
