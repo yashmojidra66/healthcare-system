@@ -34,7 +34,7 @@ type DTab = 'dashboard' | 'appointments' | 'patients' | 'profile';
           <i class="fas fa-user-md text-white text-sm"></i>
         </div>
         <div>
-          <p class="text-gray-900 font-bold text-sm leading-tight">Modern Medicare</p>
+          <p class="text-gray-900 font-bold text-sm leading-tight">Medicare System</p>
           <p class="text-gray-400 text-xs">Doctor Portal</p>
         </div>
       </div>
@@ -155,7 +155,7 @@ type DTab = 'dashboard' | 'appointments' | 'patients' | 'profile';
               <div>
                 <p class="text-gray-900 font-bold">{{ auth.currentUser()?.name }}</p>
                 <p class="text-emerald-600 text-sm">{{ auth.currentUser()?.specialty || 'General Physician' }}</p>
-                <p class="text-gray-400 text-xs">{{ auth.currentUser()?.hospital || 'Modern Medicare' }}</p>
+                <p class="text-gray-400 text-xs">{{ auth.currentUser()?.hospital || 'Medicare System' }}</p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-3">

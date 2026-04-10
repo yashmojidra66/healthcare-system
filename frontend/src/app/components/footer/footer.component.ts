@@ -16,7 +16,7 @@ import { RouterLink } from '@angular/router';
               <div class="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center flex-shrink-0">
                 <i class="fas fa-heartbeat text-white text-xs sm:text-sm"></i>
               </div>
-              <span class="text-lg sm:text-xl font-bold text-white">Modern Medicare</span>
+              <span class="text-lg sm:text-xl font-bold text-white">Medicare System</span>
             </div>
             <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Your complete health partner. Track, improve, and maintain your wellbeing with expert guidance.
@@ -63,7 +63,7 @@ import { RouterLink } from '@angular/router';
 
         </div>
         <div class="border-t border-gray-800 pt-4 sm:pt-6 text-center text-xs sm:text-sm text-gray-500">
-          <p>&copy; 2025 Modern Medicare. All rights reserved.</p>
+          <p>&copy; 2025 Medicare System. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -31,7 +31,7 @@ interface Portal {
           <div class="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-md">
             <i class="fas fa-heartbeat text-white text-sm"></i>
           </div>
-          <span class="text-xl font-bold text-gray-900">Modern<span class="text-primary-600">Medicare</span></span>
+          <span class="text-xl font-bold text-gray-900">Medicare<span class="text-primary-600">System</span></span>
         </a>
         <p class="text-sm text-gray-500">
           No account? <a routerLink="/register" class="text-primary-600 font-semibold hover:underline">Sign up free</a>
@@ -45,9 +45,7 @@ interface Portal {
           @if (!selectedPortal()) {
             <div class="animate-fade-in">
               <div class="text-center mb-10">
-                <div class="inline-flex items-center gap-2 bg-primary-100 text-primary-700 text-xs font-semibold px-4 py-2 rounded-full mb-4">
-                  <i class="fas fa-lock text-xs"></i> Secure Sign In
-                </div>
+
                 <h1 class="text-2xl sm:text-4xl font-extrabold text-gray-900 mb-3">Choose Your Portal</h1>
                 <p class="text-gray-500 text-sm sm:text-lg max-w-md mx-auto">Select the portal that matches your role to access your personalized dashboard.</p>
               </div>
@@ -90,7 +88,7 @@ interface Portal {
               <div class="mt-6 bg-gray-900/5 border border-dashed border-gray-300 rounded-2xl p-4">
                 <div class="flex items-center gap-2 mb-3">
                   <i class="fas fa-code text-xs text-gray-400"></i>
-                  <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Dev Quick Login</span>
+                  <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Sample Login</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   @for (d of devAccounts; track d.label) {
@@ -143,7 +141,7 @@ interface Portal {
                 <div class="h-1" [class]="activePortal()!.accent"></div>
                 <div class="p-7">
                   <h2 class="text-2xl font-bold text-gray-900 mb-1">Welcome back</h2>
-                  <p class="text-gray-500 text-sm mb-6">Sign in to your Modern Medicare account</p>
+                  <p class="text-gray-500 text-sm mb-6">Sign in to your Medicare System account</p>
 
                   @if (error()) {
                     <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 mb-5 text-sm flex items-center gap-2 animate-fade-in">

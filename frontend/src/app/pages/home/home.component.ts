@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
         <div class="flex-1 text-center md:text-left">
           <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl
                      font-extrabold leading-tight mb-4 md:mb-6">
-            Modern Medicare<br>
+            Medicare<br>
             <span class="text-primary-200">System</span>
           </h1>
           <p class="text-sm sm:text-base md:text-lg lg:text-xl text-primary-100
@@ -276,7 +276,7 @@ import { AuthService } from '../../services/auth.service';
           Ready to Transform Your Health?
         </h2>
         <p class="text-gray-500 text-sm sm:text-base md:text-lg mb-6 md:mb-8">
-          Join thousands of people who have already improved their wellbeing with Modern Medicare System.
+          Join thousands of people who have already improved their wellbeing with Medicare System.
         </p>
         <div class="flex flex-wrap gap-3 justify-center">
           <a routerLink="/register" class="btn-primary text-sm sm:text-base py-3 px-6 sm:px-10">
@@ -316,7 +316,7 @@ export class HomeComponent {
   ];
 
   testimonials = [
-    { name: 'Sarah Johnson', role: 'Patient', text: 'Modern Medicare System completely changed how I manage my health. Booking appointments is so easy and I love tracking my daily metrics.' },
+    { name: 'Sarah Johnson', role: 'Patient', text: 'Medicare System completely changed how I manage my health. Booking appointments is so easy and I love tracking my daily metrics.' },
     { name: 'Dr. Michael Chen', role: 'Cardiologist', text: 'The doctor portal is incredibly efficient. I can manage all my patients, prescriptions, and appointments from one place.' },
     { name: 'Emma Williams', role: 'Patient', text: 'The meal plans and workout tracking helped me lose 15kg in 6 months. The community support is amazing too!' },
   ];

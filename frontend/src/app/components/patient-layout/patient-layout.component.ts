@@ -29,7 +29,7 @@ interface NavItem { path: string; label: string; icon: string; }
       </div>
       @if (isExpanded()) {
         <div class="min-w-0 flex-1">
-          <p class="text-gray-900 font-bold text-sm leading-tight">Modern Medicare</p>
+          <p class="text-gray-900 font-bold text-sm leading-tight">Medicare System</p>
           <p class="text-gray-400 text-xs">Patient Portal</p>
         </div>
         <button (click)="closeSidebar()" class="lg:hidden text-gray-400 hover:text-gray-600 p-1">

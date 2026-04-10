@@ -30,7 +30,7 @@ type Tab = 'overview' | 'pending' | 'doctors' | 'users' | 'appointments' | 'comm
           <i class="fas fa-shield-alt text-white text-sm"></i>
         </div>
         <div>
-          <p class="text-gray-900 font-bold text-sm leading-tight">Modern Medicare</p>
+          <p class="text-gray-900 font-bold text-sm leading-tight">Medicare System</p>
           <p class="text-gray-400 text-xs">Admin Console</p>
         </div>
       </div>
@@ -87,7 +87,7 @@ type Tab = 'overview' | 'pending' | 'doctors' | 'users' | 'appointments' | 'comm
         </button>
         <div class="min-w-0">
           <h1 class="text-gray-900 font-bold text-base sm:text-lg truncate">{{ currentTabLabel() }}</h1>
-          <p class="text-gray-400 text-xs hidden sm:block">Modern Medicare Admin Panel</p>
+          <p class="text-gray-400 text-xs hidden sm:block">Medicare System Admin Panel</p>
         </div>
       </div>
       <div class="flex items-center gap-3 flex-shrink-0">
